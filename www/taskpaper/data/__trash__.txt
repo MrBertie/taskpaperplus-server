@@ -1,0 +1,27 @@
+- - new task
+..
+Deleted: test | [No Topic] | 12-Mar-2013 17:25
+..
+..
+Deleted: sample | [No Topic] | 12-Apr-2013 17:14
+..
+
+- new
+..
+with note
+Deleted: sample | [No Topic] | 12-Apr-2013 17:14
+..
+- new task
+..
+with a new note
+Deleted: test | [No Topic] | 12-Apr-2013 17:46
+..
+
+- new task
+..
+Deleted: test | [No Topic] | 12-Apr-2013 17:46
+..
+- new task **
+..
+Deleted: test | [No Topic] | 12-Apr-2013 17:46
+..

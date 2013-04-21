@@ -1,0 +1,75 @@
+Current Bugs:
+X- proper state is not being persisted *
+X- switching back to a tab with an open edit box does not work **
+X- the highlighting syntax is incorrectly inserted when using toolbar
+X- check lang change box---does it work?
+- are restricted tabs accounted for correctly?
+    Are archiving/deleting disabled?
+- locale based date formats, in lang file?
+- cursor should jump to end of text in editable mode
+- colour list in lang file: does this make sense?  Part of theme...
+
+Improvements:
+- better testing of cache and taskpaper modules
+- test search module
+- basic Auth. class already built, to be tested #done
+- update the language files (DE, FR, RU)
+- rewrite the help file to match the new features/look
+X- seems to be a problem with the next filter?
+- still need clear functions in footer?
+- update the footer
+- better drag and drop of tasks
+    perhaps between topics?
+X- use edit-in-place option (à la Workflowy)
+    happy with current method
+Wiki markup changes
+X- reconsider notes (compare Workflowy)
+X- just one "note" per item; can be multi-line
+- improve hyperlink syntax
+- think about how formatting syntax is parsed and lexed for rendering
+    could this be in the parser instead of renderer?
+- use Workflowy shortcuts [ctrl + up/down]
+undo
+- store each changed file (quick and cheap)
+- already built basic class #done
+how to deal with renames
+- no file renames, just via header info
+- tabs are stored as files, this is basic to taskpaper's philosophy, text-files rule
+X- rename: via header syntax in file (not file renames)
+X- include option to set tab order also
+X- Dokuwiki and Markdown style
+global search
+- separate tab(s) for search results?
+- master database in sqlite?
+- pro: global search possible, maybe quicker
+- con: re-write search and filtering
+- fixed header, scrolling task list
+- fixed tabs, perhaps if smaller?
+styling and CSS
+X- rewrite CSS in LESS
+X- better tabs based on CSS3
+X- generic colours!
+X- try for a Solarized colour scheme
+X- use MetroBootstrap css theme
+X- insert task item icons only on hover (via js)
+X- this would include many other items/tooltips, etc...
+X- therefore improve system for sending message strings to js
+X- use dokuwiki's method $jslang (or langjs).
+    greatly reduce the amount of data transmitted via ajax!
+X- internal refactoring!
+..
+    simplify content class where possible
+    focus on keeping it just content / data
+    [assume parsed by default, this is most often used)
+    parsed_task => tasks
+..
+X- Store as array only, insread of objects?  Why?
+..
+		all_projects => projects
+		Store as array (as above)
+		all_tags => tags
+		proj_name_* => project_by_name / project_by_key
+..
+X- TaskItems: remove_actions, instead of no_actions [clarity]
+X- Create ProjectItems class for use in templates, accesses content data
+    requires a ParsedProject class too (or array as above).
