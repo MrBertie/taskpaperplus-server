@@ -13,6 +13,7 @@ function msg() {
 /**
  * Simple, practical and fast logging function:
  * Usage:
+ * 1. de&&bug("your message here", $variable, $array, $object, $etc);
  * 2. log&&msg("as above");
  *
  * The two types: debug and logmsg exist so that you can keep your log separate from debug calls

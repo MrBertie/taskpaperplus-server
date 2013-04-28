@@ -9,6 +9,7 @@ namespace tpp;
 define('SHOW_ERRORS', true);    // false
 // [PHP_ERROR] Error pretty printer for debugging (to webpage)
 define('PHP_ERROR', false);     // false
+// Show debug messages: de&&bug(...)
 define('de', true);             // false
 // Show performance|sequence logs:   log&&msg(...)
 define('log', false);           // false
