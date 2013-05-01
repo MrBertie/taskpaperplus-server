@@ -199,11 +199,11 @@ var app = (function () {
         var text = message[0],
             colour = message[1],
             new_top = ($(window).scrollTop() - 20) + "px",
-            left = $(window).width() / 2 - 100 + 'px',
             $message_banner = $("#message-banner");
 
         $("#message-banner span").text(text);
-
+        var left = ($(window).width() - $message_banner.width()) / 2;
+        
         $message_banner
             .css({"background" : colour, "top" : new_top, "left" : left})
             .animate({top: "+=20px", opacity: 200}, {duration: 900})
@@ -231,7 +231,7 @@ var app = (function () {
 
         $("#purge-session").on("click", function () {
             request({event: 'purgesession'}, function() {
-                show_message(['Session cleared! Reloading...', lang.green]);
+                show_message(['Session cleared! Reloading...', lang.colours.green]);
                 window.setTimeout("window.location.reload()", 1500);
                 $index_load.val('false');
             });
@@ -239,13 +239,13 @@ var app = (function () {
 
         $("#purge-cache").on("click", function () {
             request({event: 'purgecache'}, function() {
-                show_message(['Cache cleared!', lang.yellow]);
+                show_message(['Cache cleared!', lang.colours.yellow]);
             });
         });
 
         $('#footer select').on('change', function () {
             request({event: 'lang', value: this.value}, function () {
-                show_message([lang.lang_change_msg, lang.green]);
+                show_message([lang.lang_change_msg, lang.colours.green]);
                 window.setTimeout("window.location.reload()", 1000);
             });
         });
@@ -262,6 +262,7 @@ var app = (function () {
             if ($search_box.data('can_reset') === true) {
                 $search_box.val('');
                 $search_box.trigger('blur');
+                $search_box.focus();
             }
         };
 
@@ -281,6 +282,7 @@ var app = (function () {
                 request({event: 'add', value: expression}, function () {
                     show_message(lang.add_msg);
                     $search_box.removeClass("big");
+                    reset_search();
                 });
             } else {
                 reset_search();
@@ -300,7 +302,7 @@ var app = (function () {
         $search_box
             .bind('keydown', 'ctrl+return meta+return', add_task)
             .bind('keydown', 'esc', reset_search)
-            .bind('keydown', 'return', function () {
+            .bind('keydown', 'return', function (e) {
                 var val = $(this).val();
                 // check for a task entry (always "- " at beginning) and allow returns
                 if (val.substr(0, 2) === (task_prefix + " ")) {
@@ -309,6 +311,7 @@ var app = (function () {
                 } else if (val === '') {
                     reset_search();
                 } else {
+                    e.preventDefault();
                     do_search();
                 }
             })
