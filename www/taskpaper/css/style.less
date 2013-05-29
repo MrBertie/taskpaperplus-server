@@ -17,11 +17,11 @@
 @green:      #859900;
 
 // tag and filter highlighting
-@bk-yellow:  #FFFFC3;
+@bk-yellow:  #FFFFB7;
 @bk-orange:  #CBB8B0;
 @bk-red:     #FFE6E6;
 @bk-magenta: #D3BBC7;
-@bk-violet:  #FAE2FF;
+@bk-violet:  #F9DCFF;
 @bk-blue:    #E1EFFF;
 @bk-cyan:    #D5E9FF;
 @bk-green:   #DBFCB9;
@@ -40,7 +40,10 @@
 @aside:      #E6EAEF;
 @tag:        #EAEFF7;
 @date-tag:   #EFE8CF;
+@proj-tag:   #DC9897;
 @strike:     #BCBCBC;
+@eraser:     #D1A4A7;
+@pencil:     #607D86;
 
 // sizes
 @content-width:     95%;
@@ -56,16 +59,18 @@ html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, 
 /* basic font and sizes */
 body {
     background-color: @backdrop;
+    color: @base02;
     font-size: 14px;
     line-height: 18px;
-    font-family: "Droid Sans", "Segoe UI", "Verdana", helvetica, sans-serif;
+    font-family: "Droid Sans", "Segoe UI", Verdana, Tahoma, helvetica, sans-serif;
     height: 100%;
     min-width: 50% !important;
     width: 100%;
     z-index: 0;
 }
 h1 {
-    font-size: 120%;
+    font-size: 140%;
+    font-weight: normal;
     margin: 0.2em 0 0.4em 0;
 }
 h1, h2, h3 {
@@ -155,7 +160,7 @@ a:hover {
         padding: 8px 12px;
         text-decoration: none;
         &.fixed {
-            color: @orange;
+            color: @violet;
         }
     }
 
@@ -209,8 +214,7 @@ a:hover {
 // **************************
 
 #header {
-    background-color: @background;
-    background: @aside;
+    background-color: @aside;
     border-bottom: 1px solid @border;
     margin-bottom: 0;
     padding: 10px 220px 10px 120px;
@@ -230,19 +234,16 @@ a:hover {
             top: 0;
         }
         p {
-            color: @base01;
-            font-size: 1.4em;
-            text-shadow: 0 1px @base2;
+            color: @pencil;
             float: left;
+            font-size: 1.4em;
             font-weight: bold;
-            opacity: 0.75;
             vertical-align: top;
             &.red {
-                color: @red;
+                color: @eraser;
             }
             &:hover {
-                opacity: 1;
-                text-shadow: none;
+                text-shadow: 1px 1px 1px @base1;
             }
         }
     }
@@ -250,7 +251,6 @@ a:hover {
     .search {
         margin: 3px 3em 0 2.5em;
         position: relative;
-        //width: 100%;
 
         a {
             font-size: 75%;
@@ -259,7 +259,7 @@ a:hover {
             top: -4px;
         }
         #search-box {
-            border: 1px solid @base2;
+            border: 1px solid @border;
             font: 14px Verdana, helvetica, sans-serif;
             height: 1.32em;
             margin-bottom: 2px;
@@ -415,9 +415,10 @@ a:hover {
         .sortable {
         color: @tab-border;
         display: inline;
+        float: right;
         font-size: 60%;
         font-weight: normal;
-        margin-left: 12px;
+        margin-right: 1em;
         vertical-align: bottom;
         }
         .just-info {
@@ -492,9 +493,9 @@ a:hover {
             }
 
             .project {
-                background: @bk-red;
-                border: 1px dotted @bk-gray;
-                color: @base1;
+                //background: @bk-red;
+                border: 1px dotted @border;
+                color: @proj-tag;
                 font-size: 85%;
                 padding: 2px 4px;
                 .hover();
@@ -537,7 +538,7 @@ a:hover {
             font-size: 85%;
             list-style: none;
             margin-left: 0;
-            margin-top: 0;
+            margin-top: -2px;
             padding-left: 0;
             text-indent: 0;
 
@@ -637,7 +638,6 @@ a:hover {
 }
 
 // the filters list
-
 .filters li span {
     padding: 3px 5px 2px;
     .hover();
@@ -671,7 +671,6 @@ a:hover {
 }
 
 
-
 // general page information
 .just-info {
     color: gray;
@@ -688,6 +687,7 @@ a:hover {
     font-weight: normal;
     font-size: 70%;
     margin-left: 0.35em;
+    opacity: 0.8;
     vertical-align: top;
 }
 

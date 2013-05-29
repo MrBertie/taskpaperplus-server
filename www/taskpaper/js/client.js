@@ -227,7 +227,9 @@ var app = (function () {
 
     pub.add_events = function () {
 
-        $("#home").on("click", reset);
+        $(".logo").on("click", "a", function() {
+            request({event: 'all'});
+        });
 
         $("#purge-session").on("click", function () {
             request({event: 'purgesession'}, function() {
@@ -506,7 +508,7 @@ var app = (function () {
 
 
             // show a project
-            .on("click", "li.project p, li .project", function () {
+            .on("click", "li.project>p, li .project", function () {
                 show_project(this);
             })
 
