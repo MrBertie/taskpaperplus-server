@@ -1,0 +1,16 @@
+2013/06/28 20:19:43 [notice] 10488#7200: signal process started
+2013/06/28 20:19:45 [notice] 9548#4172: signal process started
+2013/06/28 20:19:45 [error] 9548#4172: CreateFile() "C:\Dev\taskpaperplus-server/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2013/06/28 20:22:41 [notice] 5544#10000: signal process started
+2013/06/28 20:22:57 [notice] 6852#9896: signal process started
+2013/06/28 20:22:57 [error] 6852#9896: CreateFile() "C:\Dev\taskpaperplus-server/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2013/06/28 20:24:57 [notice] 7840#10736: signal process started
+2013/06/28 20:24:57 [error] 7840#10736: CreateFile() "C:\Dev\taskpaperplus-server/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2013/06/28 20:25:54 [notice] 1580#8084: signal process started
+2013/06/28 20:25:54 [error] 1580#8084: CreateFile() "C:\Dev\taskpaperplus-server/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2013/06/28 20:28:53 [notice] 9288#7348: signal process started
+2013/06/28 20:28:56 [notice] 4484#5336: signal process started
+2013/06/28 20:28:56 [error] 4484#5336: CreateFile() "C:\Dev\taskpaperplus-server/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2013/06/28 20:29:59 [notice] 6500#9956: signal process started
+2013/06/28 20:30:00 [notice] 10332#7188: signal process started
+2013/06/28 20:30:00 [error] 10332#7188: CreateFile() "C:\Dev\taskpaperplus-server/logs/nginx.pid" failed (2: The system cannot find the file specified)

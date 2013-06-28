@@ -4,16 +4,28 @@ namespace tpp;
 //------------------------------
 // Error reporting and logging.  TURN OFF FOR RELEASE!
 //------------------------------
+define('PRODUCTION', true);
 
-// PHP errors
-define('SHOW_ERRORS', true);    // false
-// [PHP_ERROR] Error pretty printer for debugging (to webpage)
-define('PHP_ERROR', false);     // false
-// Show debug messages: de&&bug(...)
-define('de', true);             // false
-// Show performance|sequence logs:   log&&msg(...)
-define('log', false);           // false
 
+if (PRODUCTION) {
+    
+    define('SHOW_ERRORS', false);
+    define('PHP_ERROR', false);
+    define('de', false);
+    define('log', false);
+    
+} else {
+    
+    // PHP errors
+    define('SHOW_ERRORS', true);
+    // [PHP_ERROR] Error pretty printer for debugging (to webpage)
+    define('PHP_ERROR', false);
+    // Show debug messages: de&&bug(...)
+    define('de', true);
+    // Show performance|sequence logs:   log&&msg(...)
+    define('log', false);
+    
+}
 
 //**************************************
 // Fundamental paths and session setup
@@ -157,6 +169,12 @@ require_once(APP_PATH . 'conf/term.php');
 
 // Basic app functions: config() lang(), ini(), + general functions
 require_once(APP_PATH . 'inc/common.php');
+
+
+// confirm that necessary data folders exist
+define('DATA_DIR', mkdir_or(ini('taskpaper_folder'), config('data_dir')));
+define('DELETED_DIR', mkdir_or(config('deleted_dir')));
+define('CACHE_DIR', mkdir_or(config('cache_dir')));
 
 
 // Load global language array from existing config file names
