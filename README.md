@@ -6,7 +6,7 @@ Double-click the `start-nginx.exe` program to start.  A new window should open. 
 
 **NOTE** : Taskpaper+ only works corectly in Firefox, Chrome, or Opera, NOT Internet Explorer.  Sorry about that but it's not likely to change soon...
 
-![Taskpaper+ Screenshot](https://taskpaperplus.googlecode.com/files/main-view.png)
+![Taskpaper+ Screenshot](https://taskpaperplus.googlecode.com/files/main-view-2013-07-07.png)
 
 Donations
 ======
