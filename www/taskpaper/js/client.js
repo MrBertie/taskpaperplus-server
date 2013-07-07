@@ -21,7 +21,7 @@ var app = (function () {
     var pub = {};               // all public methods
 
 
-    var ajax_file = '',         // name of php ajax target file
+    var ajax_file = 'index.php',  // name of php ajax target file
         $view_tasks,
         $edit_tasks,
         $text_area,
@@ -32,22 +32,29 @@ var app = (function () {
         task_button_tpl = '',   // template for task line buttons
         task_prefix     = '',
         page_address    = '',   // current (deep link) page address
-        restricted      = false;    // restricd = trash or archive
+        restricted      = false,    // restricd = trash or archive
+        debug_mode      = false,    // is debug mode on?
+        $insert_pos;
 
 
     pub.init = function () {
 
-        ajax_file       = "index.php";
         $view_tasks     = $("#view-tasks");
         $edit_tasks     = $("#edit-tasks");
         $text_area      = $("#edit-tasks>textarea");
         $body           = $('body');
         $index_load     = $('#page-load');
         $search_box     = $("#search-box");
+        
         lang            = JSON.parse($("#jslang").html());
+        
         task_button_tpl = $('#task-buttons-tpl').val();
         task_prefix     = $('#task-prefix').val();
-
+        debug_mode      = $('#debug-mode').val() === '1';
+        $insert_pos     = $('#insert_pos');
+        
+        pub.toggle_insert();
+        
         // set initial page address correctly (deep link after the #)
         page_address    = $("#page-address").val();
 
@@ -58,6 +65,15 @@ var app = (function () {
         // allow use of tab key in all textareas, makes it easier to add notes
         $.fn.tabOverride.tabSize(4);
         $(document).tabOverride(true, "textarea");
+        
+        // debug mode toggle message (double-click version number)
+        lang['debug_msg'] = 'Do you want to toggle debug mode?';
+        if (debug_mode === true) {
+            $('.version')
+                .css({'border-bottom': '2px solid red'})
+                .css({'color': 'red'})
+                .prepend("DEVELOPMENT  ");
+        }
     };
 
 
@@ -220,6 +236,17 @@ var app = (function () {
     var throbber_off = function () {
         $("#indicator").hide();
     };
+    
+    
+    pub.toggle_insert = function () {
+        if ($insert_pos.val() === 'top') {
+            $("#insert img#top").show();
+            $("#insert img#bottom").hide();
+        } else {
+            $("#insert img#top").hide();
+            $("#insert img#bottom").show();
+        }
+    };
 
 
     String.prototype.count = function (delim) {
@@ -232,27 +259,51 @@ var app = (function () {
         $(".logo").on("click", "a", function() {
             request({event: 'all'});
         });
-
-        $("#purge-session").on("click", function () {
-            request({event: 'purgesession'}, function() {
-                show_message(['Session cleared! Reloading...', 'green']);
-                window.setTimeout("window.location.reload()", 1500);
-                $index_load.val('false');
+        
+        // toggle debug-mode
+        $(".version")
+            .on("dblclick", "span", function(e) {
+                if (e.shiftKey) {
+                    var result = confirm(lang.debug_msg);
+                    if (result) {
+                        request({event: 'toggle_debug'});
+                        window.setTimeout("window.location.reload()", 1000);
+                        $index_load.val('false');
+                    }
+                }
+            })
+            .on("dblclick", "#purge-session", function () {
+                request({event: 'purgesession'}, function() {
+                    show_message(['Session cleared! Reloading...', 'green']);
+                    window.setTimeout("window.location.reload()", 1500);
+                    $index_load.val('false');
+                });
+            })
+            .on("dblclick", "#purge-cache", function () {
+                request({event: 'purgecache'}, function() {
+                    show_message(['Cache cleared!', 'yellow']);
+                });
             });
-        });
-
-        $("#purge-cache").on("click", function () {
-            request({event: 'purgecache'}, function() {
-                show_message(['Cache cleared!', 'yellow']);
+            
+        $("#footer")
+            .on("click", "#logout", function() {
+                request({event: "logout"}, function() {
+                    window.setTimeout("window.location.reload()", 1000);
+                });
+            })
+            .on("change", "select", function () {
+                request({event: 'lang', value: this.value}, function () {
+                    show_message([lang.lang_change_msg, 'green']);
+                    window.setTimeout("window.location.reload()", 1000);
+                });
+            })
+            .on("click", "#insert", function() {
+                request({event: 'toggle_insert'}, function() {
+                    var pos = $insert_pos.val();
+                    $insert_pos.val(pos === 'top' ? 'bottom' : 'top');
+                    pub.toggle_insert();
+                });
             });
-        });
-
-        $('#footer select').on('change', function () {
-            request({event: 'lang', value: this.value}, function () {
-                show_message([lang.lang_change_msg, 'green']);
-                window.setTimeout("window.location.reload()", 1000);
-            });
-        });
 
 
         // Search Box

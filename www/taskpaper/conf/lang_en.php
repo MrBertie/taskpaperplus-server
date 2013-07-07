@@ -1,11 +1,10 @@
 <?php
 namespace tpp;
+global $lang;
 
 /**
  * ENGLISH language
  */
-
-$lang = array();
 
 
 /**
@@ -88,7 +87,6 @@ $lang['tag_header']         = 'Tags';
 $lang['project_header']     = 'Topics';
 $lang['filter_header']      = 'Filters';
 $lang['search_header']      = 'Search: ';
-$lang['sortable']           = 'Sortable';
 
 
 // new tab sample content
@@ -100,7 +98,7 @@ $lang['edit_all_tip']       = 'Edit the tab as plain-text';
 $lang['archive_done_tip']   = 'Archive all completed tasks at once';
 $lang['trash_done_tip']     = 'Trash all completed tasks at once';
 $lang['remove_actions_tip'] = 'Remove action highlighting from all tasks at once';
-
+$lang['insert_location_tip']= 'Where to insert new tasks: at top or bottom of list/project?';
 
 // task related tips and buttons
 $lang['search_box_tip']     = "Type in words, tags, filters, or dates to search for, then [ENTER]\nOr type in a new task then [CTRL+ENTER]\n(Shortcut: Alt+Shift+C)";
@@ -117,7 +115,7 @@ $lang['archive_tab_tip']    = 'All archived tasks';
 $lang['trash_tab_tip']      = 'All deleted tasks';
 $lang['clear_box_tip']      = 'Clear the search box';
 $lang['tag_click_tip']      = 'Filter by this tag';
-
+$lang['sortable_tip']       = 'Sortable';
 
 // sent with task-buttons
 $lang['action_button_tip']  = 'Toggle between the different actions: none » next » wait » maybe';
@@ -153,13 +151,37 @@ $lang['no_date_hdr']        = 'No date';
 $lang['deleted_lbl']        = 'Deleted:';
 
 
-// login
-$lang['username_lbl']       = 'User Name';
-$lang['password_lbl']       = 'Password';
-$lang['confirmpassword_lbl'] = 'Confirm Password';
-$lang['login_lbl']          = 'Login';
-$lang['resetlogin_lbl']     = 'Reset Login';
-$lang['createuser_lbl']     = 'Create User';
+// login general form labels
+$lang['username_lbl']         = 'username';
+$lang['email_lbl']            = 'email address';
+$lang['password_lbl']         = 'password';
+$lang['repeatpassword_lbl']   = 'repeat password';
+$lang['login_lbl']            = 'Login';
+$lang['register_lbl']         = 'Register';
+$lang['forgotpassword_lbl']   = 'Forgot Password';
+$lang['logout_lbl']           = 'Logout';
+$lang['logged_in_as_lbl']     = 'Login:';
+
+// login allowed pattern decription
+$lang['username_pattern']     = 'Allowed: 0-9, a-z, A-Z; Length: 2-32 chars';
+$lang['password_pattern']     = 'Allowed: 0-9, a-z, A-Z; Length: 2-32 chars';
+
+
+// login msgs
+$lang['login_msg']               = 'Login or Register below';
+$lang['registration_msg']        = 'Successfully registered</br>Now login below';
+$lang['login_failed_msg']        = 'Login failed</br>Correct errors and try again';
+$lang['registration_failed_msg'] = 'Registration failed</br>Correct errors and try again';
+
+
+// login errors
+$lang['no_such_user_err']       = 'No such username.</br>Have you registered?';
+$lang['user_exists_err']        = 'Username already taken';
+$lang['invalid_username_err']   = 'Username is invalid</br>(' . $lang['username_pattern'] . ')';
+$lang['invalid_password_err']   = 'Password in invalid</br>(' . $lang['password_pattern'] . ')';
+$lang['nonmatch_passwords_err'] = 'Second password does not match first';
+$lang['invalid_email_err']      = 'Your email address is not valid';
+$lang['userfile_missing_err']   = 'File containing the list of users was missing, a blank one has been recreated.';
 
 
 

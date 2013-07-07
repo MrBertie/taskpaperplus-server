@@ -1,11 +1,10 @@
 <?php
 namespace tpp;
+global $lang;
 
 /**
  * Deutsch / GERMAN language
  */
-
-$lang = array();
 
 
 /**
@@ -88,7 +87,6 @@ $lang['tag_header']         = 'Tags';
 $lang['project_header']     = 'Projekte';
 $lang['filter_header']      = 'Filter';
 $lang['search_header']      = 'Suche: ';
-$lang['sortable']           = 'Sortierbar';
 
 
 // new tab sample content
@@ -117,6 +115,7 @@ $lang['archive_tab_tip']    = 'Archivierte Aufgaben anzeigen';
 $lang['trash_tab_tip']      = 'Gelöschte Aufgaben anzeigen';
 $lang['clear_box_tip']      = 'Die Suchbox zurücksetzen';
 $lang['tag_click_tip']      = 'Klick um nach diesem Tag zu filtern';
+$lang['sortable_tip']       = 'Sortierbar';
 
 
 // sent with task-buttons
@@ -153,14 +152,37 @@ $lang['no_date_hdr']        = 'Kein Datum';
 $lang['deleted_lbl']        = 'Erlöscht:';
 
 
-// login
-$lang['username_lbl']       = 'User Name';
-$lang['password_lbl']       = 'Password';
-$lang['confirmpassword_lbl'] = 'Confirm Password';
-$lang['login_lbl']          = 'Login';
-$lang['resetlogin_lbl']     = 'Reset Login';
-$lang['createuser_lbl']     = 'Create User';
+// login general form labels
+$lang['username_lbl']         = 'Benutzername';
+$lang['email_lbl']            = 'E-Mail-Adresse';
+$lang['password_lbl']         = 'Passwort';
+$lang['repeatpassword_lbl']   = 'Passwort wiederholen';
+$lang['login_lbl']            = 'Einloggen';
+$lang['register_lbl']         = 'Registrieren';
+$lang['forgotpassword_lbl']   = 'Passwort vergessen';
+$lang['logout_lbl']           = 'Ausloggen';
+$lang['logged_in_as_lbl']     = 'Eingeloggt:';
 
+// login allowed pattern decription
+$lang['username_pattern']     = 'Erlaubt: 0-9, a-z, A-Z, Länge: 2-32 Zeichen';
+$lang['password_pattern']     = 'Erlaubt: 0-9, a-z, A-Z, Länge: 2-32 Zeichen';
+
+
+// login msgs
+$lang['login_msg']               = 'Einloggen oder Registrieren herunten';
+$lang['registration_msg']        = 'Registrierung erfolgreich</br>Jetzt hier anmelden';
+$lang['login_failed_msg']        = 'Fehler beim Einloggen </br>Berichtigen und versuchen Sie es erneut';
+$lang['registration_failed_msg'] = 'Fehler bei der Registrierung</br>Berichtigen und versuchen Sie es erneut';
+
+
+// login errors
+$lang['no_such_user_err']       = 'Keine solche Benutzernamen</br>Haben Sie schon registriert?';
+$lang['user_exists_err']        = 'Benutzername bereits vergeben';
+$lang['invalid_username_err']   = 'Benutzername ist ungültig</br>(' . $lang['username_pattern'] . ')';
+$lang['invalid_password_err']   = 'Passwort ist ungültig</br>(' . $lang['password_pattern'] . ')';
+$lang['nonmatch_passwords_err'] = 'Zweites Passwort stimmt nicht mit dem Ersten überein';
+$lang['invalid_email_err']      = 'Ihre E-Mail-Adresse ist nicht gültig';
+$lang['userfile_missing_err']   = 'Die Benutzerliste fehlte, es wurde neu erstellt';
 
 
 // ****************

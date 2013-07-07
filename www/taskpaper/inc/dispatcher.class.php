@@ -21,6 +21,7 @@ class BasicDispatcher {
     public $request;
     public $state;
 
+
     /**
      * @param \tpp\control\State $state Current active Tab/view State
      * @param array $default    Default request parameters
@@ -65,6 +66,9 @@ class BasicDispatcher {
         if ($response !== false) {
             if ($request->source == REQ_AJAX) {
                 header('Content-type: application/json', true, 200);
+                // no caching for ajax responses
+                header("Cache-Control: no-cache, must-revalidate");
+                header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
                 $response = json_encode($response);
             } else {
                 header('Content-type: text/html; charset=utf-8');
@@ -157,12 +161,13 @@ class BasicDispatcher {
 
 class Dispatcher extends BasicDispatcher {
 
-    protected $_taskpapers;
-    protected $_taskpaper;
-    protected $_views;
-    protected $_states;
-    protected $_files;
     protected $_cache;
+    protected $_files;
+    protected $_states;
+    protected $_taskpaper;
+    protected $_taskpapers;
+    protected $_user;
+    protected $_views;
 
     const TAB_NONE      = 0;
     const TAB_SAME      = 1;
@@ -197,10 +202,6 @@ class Dispatcher extends BasicDispatcher {
 
     function respond() {
 
-        if ( ! $this->_user->logged_in()) {
-            return $this->existuser();
-        }
-
         $request = & $this->request;
 
         log&&msg('beginning the response; request is:', $request);
@@ -219,20 +220,6 @@ class Dispatcher extends BasicDispatcher {
         log&&msg('finished response, state saved as:', $this->_states->active());
     }
 
-
-    protected function existuser() {
-        return $this->_views->existuser();
-    }
-    
-
-    protected function newuser() {
-        return $this->_views->newuser();
-    }
-
-
-    protected function resetpassword() {
-        return $this->_views->resetpassword();
-    }
 
 
     /**
@@ -292,12 +279,12 @@ class Dispatcher extends BasicDispatcher {
     // *****************************************
     // ACTION ONLY requests, no new page address
     // *****************************************
-
+    
+    
     protected function action_add() {
 
         // Where in task list to add the task?
         $project_index = 0;
-        $task_added = false;
         $task = $this->request->value;
 
         if ($this->state->event == 'project') {
@@ -305,12 +292,7 @@ class Dispatcher extends BasicDispatcher {
         } else {
             list($task, $project_index) = $this->_split_task_and_project($task);
         }
-
-        if ($project_index >= 0) {
-            $task_added = $this->_taskpaper->add($task, $project_index);
-        } else {
-            $task_added = $this->_taskpaper->add($task);
-        }
+        $task_added = $this->_taskpaper->add($task, $project_index);
 
         return ($task_added ? self::UPDATED : false);
     }
@@ -395,7 +377,7 @@ class Dispatcher extends BasicDispatcher {
 
 
     protected function action_purgesession() {
-        $this->_states->clear();
+        session_destroy();
         return self::ACTION;
     }
 
@@ -408,7 +390,25 @@ class Dispatcher extends BasicDispatcher {
         \tpp\ini('language', $this->request->value);
         return self::ACTION;
     }
+    
+    protected function action_toggle_debug() {
+        \tpp\toggle_debug_mode();
+        return self::ACTION;
+    }
+    
+    protected function action_logout() {
+        $this->_user->logout();
+        return self::ACTION;
+    }
+    
+    protected function action_toggle_insert() {
+        $cur = \tpp\ini('insert_pos');
+        $pos = ($cur == 'top' ? 'bottom' : 'top');
+        \tpp\ini('insert_pos', $pos);
+        return self::ACTION;
+    }
 
+    
     /**
      * Show a specific tab state. Always returns a new state.
      *
@@ -487,7 +487,7 @@ class Dispatcher extends BasicDispatcher {
         global $term;
         $match = array('', '', '');
         $text = $task;
-        $project = '';
+        $project = 0;
 
         $matched = preg_match($term['add_to_proj'], $task, $match);
         if ($matched !== false && $matched > 0) {

@@ -1,6 +1,6 @@
 <?php
 namespace tpp\view;
-use tpp\model, tpp;
+use tpp\model, tpp\user, tpp;
 
 /**
  * The main View class;
@@ -10,11 +10,13 @@ use tpp\model, tpp;
  */
 class Views {
     private $_taskpapers;
+    private $_user;
 
-    function __construct(model\Taskpapers $taskpapers) {
+    function __construct(model\Taskpapers $taskpapers, user\User $user) {
         // NOTE: a reference to a specific taskpaper is not used
         // here, as this could change during the request (e.g. show_tab)
         $this->_taskpapers = $taskpapers;
+        $this->_user = $user;
     }
 
     /**
@@ -25,20 +27,23 @@ class Views {
         global $term;
 
         $view = new Template('index');
+        
+        // page data (hidden)
         $view->jslang = json_encode($jslang);
         $view->page_address = $address;
-        $view->langs = tpp\config('lang_list');
-        $view->cur_lang = tpp\ini('language');
         $view->task_prefix = $term['task_prefix'];
-        $view->task_buttons = new Template('taskbuttons');
+        $view->debug_mode = DEBUG_MODE;
+        $view->insert_pos = \tpp\ini('insert_pos');
 
         // child views
+        $view->task_buttons = new Template('taskbuttons');
         $view->tabs = $this->tabs();
         $view->header = new Template('header');
         $view->projects = $this->projects();
         $view->filters = $this->filters();
         $view->tags = $this->tags();
         $view->tasks = $this->all();
+        $view->footer = $this->footer();
         return $view;
     }
 
@@ -107,6 +112,14 @@ class Views {
         $view->restricted = $this->_taskpapers->active()->restricted();
         return $view;
     }
+    
+    function footer() {
+        $view = new Template('footer');
+        $view->langs = tpp\config('lang_list');
+        $view->cur_lang = tpp\ini('language');
+        $view->logged_in_as = $this->_user->logged_in_as();
+        return $view;
+    }
 
 
     /**
@@ -135,29 +148,5 @@ class Views {
                      'projects' => $this->projects()->render(),
                      'tags' => $this->tags()->render(),
                      'restricted' => $this->_taskpapers->active()->restricted());
-    }
-    
-    
-    /**
-     * Login views
-     */
-    function login_user() {
-        $view = new Template('login');
-        $view->form = new Template('existuser');
-        return $view;
-    }
-    
-    
-    function new_user() {
-        $view = new Template('login');
-        $view->form = new Template('newuser');
-        return $view;
-    }
-    
-    
-    function reset_password() {
-        $view = new Template('login');
-        $view->form = new Template('resetpassword');
-        return $view;
     }
 }
